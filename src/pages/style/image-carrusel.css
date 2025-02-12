@@ -1,0 +1,17 @@
+.image-carrusel{
+    background: url(../../assets/baja-california-burger.jpg);
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+}
+
+.image-carrusel>span{
+    font-size: 50px;
+    background-color: black;
+}
