@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Mesas - JUICY BURGERS & MEALS</title>
+    <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/body.css">
+    <link rel="stylesheet" href="../styles/footer.css">
+    <link rel="stylesheet" href="../styles/page-principal.css">
+    <link rel="stylesheet" href="../styles/modal.css"> <!-- Nuevo archivo para el modal -->
+    <link rel="stylesheet" href="../fonts/fontawesome/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="nav">
+            <div class="logo">
+                <img src="../assets/logo.png" alt="Logo">
+                <div class="name">JUICY BURGERS & MEALS</div>
+            </div>
+            <div class="items">
+                <div class="item"><a href="../../index.html"><i class="fas fa-home"></i> Inicio</a></div>
+                <div class="item"><a href="#" id="caja"><i class="fas fa-cash-register"></i> Caja</a></div>
+                <div class="item"><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></div>                
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="mesas">
+            <h2><i class="fas fa-table"></i> Mesas</h2>
+            <div class="mesa" id="mesa-1">Mesa 1</div>
+            <div class="mesa" id="mesa-2">Mesa 2</div>
+            <div class="mesa" id="mesa-3">Mesa 3</div>
+            <div class="mesa" id="mesa-4">Mesa 4</div>
+            <div class="mesa" id="mesa-5">Mesa 5</div>
+            <div class="mesa" id="mesa-6">Mesa 6</div>
+        </div>
+
+        <div class="contenido">
+            <!-- Menú -->
+            <div class="menu">
+                <h2><i class="fas fa-utensils"></i> Comida</h2>
+                <div class="item" data-nombre="Hamburguesa" data-precio="5.00">🍔 Hamburguesa - $5.00</div>
+                <div class="item" data-nombre="Pizza" data-precio="7.00">🍕 Pizza - $7.00</div>
+                <div class="item" data-nombre="Perro Caliente" data-precio="3.50">🌭 Perro Caliente - $3.50</div>
+
+                <h2><i class="fas fa-coffee"></i> Bebidas</h2>
+                <div class="item" data-nombre="Refresco" data-precio="2.00">🥤 Refresco - $2.00</div>
+                <div class="item" data-nombre="Jugo" data-precio="2.50">🧃 Jugo - $2.50</div>
+                <div class="item" data-nombre="Cerveza" data-precio="3.00">🍺 Cerveza - $3.00</div>
+            </div>
+
+            <!-- Comanda -->
+            <div class="comanda">
+                <h2><i class="fas fa-receipt"></i> Comanda</h2>
+                <p id="mesa-seleccionada">Selecciona una mesa</p>
+                <ul id="lista-comanda"></ul>
+                <p><strong>Total: $<span id="total">0.00</span></strong></p>
+                <button id="facturar">Facturar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para mensajes -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal" id="modal">
+        <p id="modal-message"></p>
+        <button id="cerrarModal">Cerrar</button>
+    </div>
+
+    <footer>
+        <p>Derechos de autor 2025 | Universidad de Oriente</p>
+    </footer>
+
+    <script src="../function/caja-ventas.js"></script>
+</body>
+</html>
