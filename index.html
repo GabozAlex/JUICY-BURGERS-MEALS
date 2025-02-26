@@ -1,33 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JUICY BURGERS & MEALS</title>
-    <link rel="stylesheet" href="src/pages/style/header.css">
-    <link rel="stylesheet" href="src/pages/style/body.css">
-    <link rel="stylesheet" href="src/pages/style/footer.css">
-    <link rel="stylesheet" href="src/pages/style/image-carrusel.css">
+    <link rel="stylesheet" href="src/styles/header.css">
+    <link rel="stylesheet" href="src/styles/body.css">
+    <link rel="stylesheet" href="src/styles/footer.css">
+    <link rel="stylesheet" href="src/styles/image-carrusel.css">
+    <link rel="stylesheet" href="src/fonts/fontawesome/css/all.min.css">    
 </head>
 <body>
     <header>
         <div class="nav">
-            <div class="logo"><img src="" alt="Logo"></div>
-            <div class="name"><h2>JUICY BURGERS & MEALS</h2></div>
-            <div class="item"><a href="index.html">Inicio</a></div>
-            <div class="item"><a href="src/pages/inicio-sesion.html">Iniciar Sesion</a></div>
-            <div class="item"><a href="src/pages/registro-usuario.html">Registrar Usuario</a></div>
+            <div class="logo">
+                <img src="src/assets/logo.png" alt="Logo">
+                <div class="name">JUICY BURGERS & MEALS</div>
+            </div>
+            <div class="items">
+                <div class="item"><a href="index.html"><i class="fas fa-home"></i> Inicio</a></div>
+                <div class="item"><a href="src/pages/caja-ventas.html"><i class="fas fa-cash-register"></i> Caja</a></div>
+                <div class="item"><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></div>                
+            </div>
         </div>
     </header>
+    
     <div class="container">
         <div class="image-carrusel">
-            <span>Aqui hay que poner una frase o algo</span>
+            <div class="carrusel-container">
+                <div class="carrusel-slide">
+                    <img src="src/assets/baja-california-burger.jpg" alt="Imagen 1">
+                    <img src="src/assets/clasica-burger.jpg" alt="Imagen 2"> <!-- Cambia por tus imágenes -->
+                    <img src="src/assets/emergencias-112.jpg" alt="Imagen 3"> <!-- Cambia por tus imágenes -->
+                    <img src="src/assets/solomillo4.jpg" alt="Imagen 4">
+                    <img src="src/assets/solomillo7.jpg" alt="Imagen 5">
+                </div>
+                <button class="carrusel-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="carrusel-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <span>¡Bienvenido a JUICY BURGERS & MEALS!</span>
         </div>
     </div>
+
     <footer>
-        <p>
-            Derechos de autor 2025 | Universidad de Oriente
-        </p>
+        <p>Derechos de autor 2025 | Universidad de Oriente</p>
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (!sessionStorage.getItem("loggedIn")) {
+                window.location.href = "src/pages/inicio-sesion.html";
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById("logout").addEventListener("click", function() {
+            sessionStorage.removeItem("loggedIn");
+            window.location.href = "src/pages/inicio-sesion.html";
+        });
+    </script>
+
+    <script src="src/function/carrusel-inicio.js"></script>
 </body>
 </html>
