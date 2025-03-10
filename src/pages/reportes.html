@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes - JUICY BURGERS & MEALS</title>
+    <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/reportes.css">
+    <link rel="stylesheet" href="../styles/footer.css"> <!-- Llamar al CSS del footer -->
+    <link rel="stylesheet" href="../fonts/fontawesome/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="nav">
+            <div class="logo">
+                <img src="../assets/logo.png" alt="Logo">
+                <div class="name">JUICY BURGERS & MEALS</div>
+            </div>
+            <div class="items">
+                <div class="item"><a href="../../index.html"><i class="fas fa-home"></i> Inicio</a></div>
+                <div class="item"><a href="caja-ventas.html"><i class="fas fa-cash-register"></i> Caja</a></div>
+                <div class="item"><a href="reportes.html"><i class="fas fa-chart-line"></i> Reportes</a></div>
+                <div class="item"><a href="inventario.html"><i class="fas fa-boxes"></i> Inventario</a></div>
+                <div class="item"><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido de la página de reportes -->
+    <div class="container">
+        <h1 class="titulo-reportes">Centro de Reportes</h1>
+        <div class="reportes">
+            <!-- Reporte de ventas totales -->
+            <div class="reporte">
+                <h2><i class="fas fa-dollar-sign"></i> Ventas Totales</h2>
+                <p id="ventas-totales">$0.00</p>
+            </div>
+
+            <!-- Reporte de mesas ocupadas -->
+            <div class="reporte">
+                <h2><i class="fas fa-table"></i> Mesas Ocupadas</h2>
+                <p id="mesas-ocupadas">0</p>
+            </div>
+
+            <!-- Reporte de productos más vendidos -->
+            <div class="reporte">
+                <h2><i class="fas fa-utensils"></i> Productos Más Vendidos</h2>
+                <ul id="productos-vendidos"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer (llamado como en tu ejemplo) -->
+    <footer>
+        <p>Derechos de autor 2025 | Universidad de Oriente</p>
+    </footer>
+
+    <script>
+        // Datos de ejemplo (simulación)
+        const ventasTotales = 150.50;
+        const mesasOcupadas = 3;
+        const productosVendidos = [
+            { nombre: "Hamburguesa", cantidad: 10 },
+            { nombre: "Pizza", cantidad: 7 },
+            { nombre: "Refresco", cantidad: 15 }
+        ];
+
+        // Mostrar datos en la página
+        document.getElementById("ventas-totales").textContent = `$${ventasTotales.toFixed(2)}`;
+        document.getElementById("mesas-ocupadas").textContent = mesasOcupadas;
+
+        const listaProductos = document.getElementById("productos-vendidos");
+        productosVendidos.forEach(producto => {
+            const item = document.createElement("li");
+            item.textContent = `${producto.nombre}: ${producto.cantidad} unidades`;
+            listaProductos.appendChild(item);
+        });
+
+        // Cerrar sesión
+        document.getElementById("logout").addEventListener("click", function() {
+            sessionStorage.removeItem("loggedIn");
+            window.location.href = "inicio-sesion.html";
+        });
+    </script>
+</body>
+</html>

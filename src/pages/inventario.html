@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario - JUICY BURGERS & MEALS</title>
+    <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/body.css">
+    <link rel="stylesheet" href="../styles/footer.css">
+    <link rel="stylesheet" href="../styles/page-inventario.css">
+    <link rel="stylesheet" href="../fonts/fontawesome/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="nav">
+            <div class="logo">
+                <img src="../assets/logo.png" alt="Logo">
+                <div class="name">JUICY BURGERS & MEALS</div>
+            </div>
+            <div class="items">
+                <div class="item"><a href="../../index.html"><i class="fas fa-home"></i> Inicio</a></div>
+                <div class="item"><a href="caja-ventas.html"><i class="fas fa-cash-register"></i> Caja</a></div>
+                <div class="item"><a href="reportes.html"><i class="fas fa-chart-line"></i> Reportes</a></div>
+                <div class="item"><a href="inventario.html"><i class="fas fa-boxes"></i> Inventario</a></div>
+                <div class="item"><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></div>                
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1><i class="fas fa-boxes"></i> Gestión de Inventario</h1>
+
+        <!-- Formulario para agregar/actualizar productos -->
+        <div class="formulario">
+            <h2>Agregar/Actualizar Producto</h2>
+            <form id="form-producto">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" placeholder="Nombre del producto" required>
+
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" id="cantidad" placeholder="Cantidad" required>
+
+                <label for="precio">Precio:</label>
+                <input type="number" id="precio" placeholder="Precio" step="0.01" required>
+
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+
+        <!-- Lista de productos -->
+        <div class="lista-productos">
+            <h2>Productos en Inventario</h2>
+            <table id="tabla-inventario">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los productos se agregarán dinámicamente aquí -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Datos de ejemplo (simulando el inventario)
+        let inventario = [
+            { nombre: "Hamburguesa", cantidad: 50, precio: 5.00 },
+            { nombre: "Pizza", cantidad: 30, precio: 7.00 },
+            { nombre: "Refresco", cantidad: 100, precio: 2.00 }
+        ];
+
+        // Función para renderizar la tabla de inventario
+        function renderizarInventario() {
+            const tbody = document.querySelector('#tabla-inventario tbody');
+            tbody.innerHTML = '';
+
+            inventario.forEach((producto, index) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${producto.nombre}</td>
+                        <td>${producto.cantidad}</td>
+                        <td>$${producto.precio.toFixed(2)}</td>
+                        <td>
+                            <button onclick="editarProducto(${index})">✏️</button>
+                            <button onclick="eliminarProducto(${index})">❌</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        // Función para agregar o actualizar un producto
+        document.getElementById('form-producto').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nombre').value;
+            const cantidad = parseInt(document.getElementById('cantidad').value);
+            const precio = parseFloat(document.getElementById('precio').value);
+
+            // Verificar si el producto ya existe
+            const productoExistente = inventario.find(p => p.nombre === nombre);
+
+            if (productoExistente) {
+                // Actualizar producto existente
+                productoExistente.cantidad = cantidad;
+                productoExistente.precio = precio;
+            } else {
+                // Agregar nuevo producto
+                inventario.push({ nombre, cantidad, precio });
+            }
+
+            // Limpiar el formulario
+            document.getElementById('form-producto').reset();
+
+            // Renderizar la tabla de inventario
+            renderizarInventario();
+        });
+
+        // Función para editar un producto
+        function editarProducto(index) {
+            const producto = inventario[index];
+            document.getElementById('nombre').value = producto.nombre;
+            document.getElementById('cantidad').value = producto.cantidad;
+            document.getElementById('precio').value = producto.precio;
+        }
+
+        // Función para eliminar un producto
+        function eliminarProducto(index) {
+            inventario.splice(index, 1);
+            renderizarInventario();
+        }
+
+        // Renderizar el inventario al cargar la página
+        window.onload = renderizarInventario;
+
+        // Cerrar sesión
+        document.getElementById("logout").addEventListener("click", function() {
+            sessionStorage.removeItem("loggedIn");
+            window.location.href = "inicio-sesion.html";
+        });
+    </script>
+</body>
+</html>
