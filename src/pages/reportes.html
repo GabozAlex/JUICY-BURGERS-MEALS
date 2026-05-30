@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportes - JUICY BURGERS & MEALS</title>
     <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/body.css">
     <link rel="stylesheet" href="../styles/reportes.css">
-    <link rel="stylesheet" href="../styles/footer.css"> <!-- Llamar al CSS del footer -->
+    <link rel="stylesheet" href="../styles/footer.css">
     <link rel="stylesheet" href="../fonts/fontawesome/css/all.min.css">
     <link rel="shortcut icon" href="../../logoBurguers.png" type="image/x-icon" size="16x16">
 </head>
@@ -58,25 +59,52 @@
     </footer>
 
     <script>
-        // Datos de ejemplo (simulación)
-        const ventasTotales = 150.50;
-        const mesasOcupadas = 3;
-        const productosVendidos = [
-            { nombre: "Hamburguesa", cantidad: 10 },
-            { nombre: "Pizza", cantidad: 7 },
-            { nombre: "Refresco", cantidad: 15 }
-        ];
+        function contarMesasOcupadas() {
+            const data = localStorage.getItem('jc_mesas');
+            if (!data) return 0;
+            const mesas = JSON.parse(data);
+            return Object.values(mesas).filter(items => items.length > 0).length;
+        }
 
-        // Mostrar datos en la página
-        document.getElementById("ventas-totales").textContent = `$${ventasTotales.toFixed(2)}`;
-        document.getElementById("mesas-ocupadas").textContent = mesasOcupadas;
+        function calcularVentas() {
+            const data = localStorage.getItem('jc_ventas');
+            if (!data) return 0;
+            const ventas = JSON.parse(data);
+            return ventas.reduce((sum, v) => sum + v.total, 0);
+        }
 
-        const listaProductos = document.getElementById("productos-vendidos");
-        productosVendidos.forEach(producto => {
-            const item = document.createElement("li");
-            item.textContent = `${producto.nombre}: ${producto.cantidad} unidades`;
-            listaProductos.appendChild(item);
-        });
+        function productosMasVendidos() {
+            const data = localStorage.getItem('jc_ventas');
+            if (!data) return [];
+            const ventas = JSON.parse(data);
+            const conteo = {};
+            ventas.forEach(v => {
+                v.items.forEach(item => {
+                    conteo[item.nombre] = (conteo[item.nombre] || 0) + 1;
+                });
+            });
+            return Object.entries(conteo)
+                .sort((a, b) => b[1] - a[1])
+                .map(([nombre, cantidad]) => ({ nombre, cantidad }));
+        }
+
+        const total = calcularVentas();
+        const ocupadas = contarMesasOcupadas();
+        const topProductos = productosMasVendidos();
+
+        document.getElementById('ventas-totales').textContent = `$${total.toFixed(2)}`;
+        document.getElementById('mesas-ocupadas').textContent = ocupadas;
+
+        const listaProductos = document.getElementById('productos-vendidos');
+        if (topProductos.length === 0) {
+            listaProductos.innerHTML = '<li>Sin ventas registradas</li>';
+        } else {
+            topProductos.forEach(p => {
+                const item = document.createElement('li');
+                item.textContent = `${p.nombre}: ${p.cantidad} vendidos`;
+                listaProductos.appendChild(item);
+            });
+        }
 
         // Cerrar sesión
         document.getElementById("logout").addEventListener("click", function() {

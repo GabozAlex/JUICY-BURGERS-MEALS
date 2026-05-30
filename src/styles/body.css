@@ -1,5 +1,5 @@
 html, body {
-    height: 100%; /* Asegura que el HTML y el body ocupen el 100% de la pantalla */
+    height: 100%;
     margin: 0;
     padding: 0;
     display: flex;
@@ -7,10 +7,16 @@ html, body {
 }
 
 .container {
-    flex: 1; /* Hace que el contenedor principal ocupe el espacio restante */
+    flex: 1;
     width: 100%;
-    background-color: cadetblue;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-bottom: 40px;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding-bottom: 50px;
+    }
 }

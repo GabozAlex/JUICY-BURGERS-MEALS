@@ -68,14 +68,23 @@
     </div>
 
     <script>
-        // Datos de ejemplo (simulando el inventario)
-        let inventario = [
-            { nombre: "Hamburguesa", cantidad: 50, precio: 5.00 },
-            { nombre: "Pizza", cantidad: 30, precio: 7.00 },
-            { nombre: "Refresco", cantidad: 100, precio: 2.00 }
-        ];
+        const INV_KEY = 'jc_inventario';
 
-        // Función para renderizar la tabla de inventario
+        function cargarInventario() {
+            const data = localStorage.getItem(INV_KEY);
+            return data ? JSON.parse(data) : [
+                { nombre: "Hamburguesa", cantidad: 50, precio: 5.00 },
+                { nombre: "Pizza", cantidad: 30, precio: 7.00 },
+                { nombre: "Refresco", cantidad: 100, precio: 2.00 }
+            ];
+        }
+
+        let inventario = cargarInventario();
+
+        function guardarInventario() {
+            localStorage.setItem(INV_KEY, JSON.stringify(inventario));
+        }
+
         function renderizarInventario() {
             const tbody = document.querySelector('#tabla-inventario tbody');
             tbody.innerHTML = '';
@@ -95,7 +104,6 @@
             });
         }
 
-        // Función para agregar o actualizar un producto
         document.getElementById('form-producto').addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -103,26 +111,20 @@
             const cantidad = parseInt(document.getElementById('cantidad').value);
             const precio = parseFloat(document.getElementById('precio').value);
 
-            // Verificar si el producto ya existe
             const productoExistente = inventario.find(p => p.nombre === nombre);
 
             if (productoExistente) {
-                // Actualizar producto existente
                 productoExistente.cantidad = cantidad;
                 productoExistente.precio = precio;
             } else {
-                // Agregar nuevo producto
                 inventario.push({ nombre, cantidad, precio });
             }
 
-            // Limpiar el formulario
             document.getElementById('form-producto').reset();
-
-            // Renderizar la tabla de inventario
+            guardarInventario();
             renderizarInventario();
         });
 
-        // Función para editar un producto
         function editarProducto(index) {
             const producto = inventario[index];
             document.getElementById('nombre').value = producto.nombre;
@@ -130,13 +132,12 @@
             document.getElementById('precio').value = producto.precio;
         }
 
-        // Función para eliminar un producto
         function eliminarProducto(index) {
             inventario.splice(index, 1);
+            guardarInventario();
             renderizarInventario();
         }
 
-        // Renderizar el inventario al cargar la página
         window.onload = renderizarInventario;
 
         // Cerrar sesión

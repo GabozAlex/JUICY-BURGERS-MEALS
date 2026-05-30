@@ -1,21 +1,22 @@
-/* Estilo para el contenedor principal */
 .container {
     background: url('../assets/homeburger-madrid-nuestro-restaurante.jpg');
     background-size: cover;
+    background-position: center;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    padding-top: 80px;
+    padding-bottom: 60px;
 }
 
-/* Estilo para el formulario de inventario */
 .formulario {
     background-color: rgba(244, 234, 234, 0.9);
     padding: 20px;
     border-radius: 8px;
-    width: 80%;
+    width: 90%;
     max-width: 800px;
     margin-bottom: 20px;
 }
@@ -39,6 +40,7 @@
     margin-bottom: 15px;
     border: 1px solid #dddddd;
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .formulario button {
@@ -57,13 +59,13 @@
     background-color: #e64a2e;
 }
 
-/* Estilo para la lista de productos */
 .lista-productos {
     background-color: rgba(252, 244, 244, 0.9);
     padding: 20px;
     border-radius: 8px;
-    width: 80%;
+    width: 90%;
     max-width: 800px;
+    overflow-x: auto;
 }
 
 .lista-productos h2 {
@@ -99,8 +101,26 @@ table td button {
     font-size: 1.2em;
     margin: 0 5px;
     transition: color 0.3s ease;
+    width: auto;
+    padding: 4px 8px;
 }
 
 table td button:hover {
     color: #FF5733;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding-top: 70px;
+    }
+
+    .formulario, .lista-productos {
+        width: 95%;
+        padding: 15px;
+    }
+
+    table th, table td {
+        padding: 8px 6px;
+        font-size: 0.85rem;
+    }
 }

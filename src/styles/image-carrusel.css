@@ -53,5 +53,14 @@
     font-size: 50px;
     background-color: rgba(0, 0, 0, 0.7);
     padding: 10px;
-    z-index: 10; /* Asegura que el texto esté sobre las imágenes */
+    z-index: 10;
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    .image-carrusel > span {
+        font-size: 24px;
+        padding: 8px;
+        width: 90%;
+    }
 }
